@@ -1,0 +1,91 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: var(--font-family); /* PrimeNG provides some CSS variables */
+}
+
+header {
+  background-color: var(--primary-color, #007bff); /* Use PrimeNG variable or fallback */
+  color: var(--primary-color-text, white);
+  padding: 1rem;
+  text-align: center;
+}
+
+.main-layout {
+  display: flex;
+  flex-grow: 1;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.main-layout .blockly-area { /* CSS way for specificity */
+  flex: 2; /* Takes more space */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.main-layout .blockly-area h2 {
+  margin-top: 0;
+}
+
+.main-layout .blockly-area .controls {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.main-layout .simulation-area { /* CSS way */
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.main-layout .simulation-area h2 {
+  margin-top: 0;
+}
+
+.main-layout .simulation-area textarea {
+  font-family: monospace;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+.main-layout .simulation-area pre {
+  background-color: #282c34;
+  color: #abb2bf;
+  padding: 1rem;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-top: 0.5rem;
+  min-height: 50px;
+}
+
+footer {
+  background-color: #f0f0f0;
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+/*
+  For Blockly's own styles, if you need to override or ensure visibility:
+  You might need to use ::ng-deep for some Blockly internal elements if they are
+  encapsulated and you can't target them directly. However, try without it first.
+*/
+/* Example for flyout if it's hidden, but usually not needed with correct setup */
+/*
+::ng-deep .blocklyFlyout {
+  z-index: 20;
+}
+::ng-deep .blocklyToolboxDiv {
+  background-color: #f0f0f0;
+}
+*/
