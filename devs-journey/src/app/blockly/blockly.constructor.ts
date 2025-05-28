@@ -1,10 +1,9 @@
 import * as Blockly from 'blockly/core';
-import * as Function from './blockly.functions';
-import {javascriptGenerator, Order} from 'blockly/javascript';
+import { javascriptGenerator, Order } from 'blockly/javascript';
 
 export function defineBlocks() {
   Blockly.Blocks['dev_task'] = {
-    init: function() {
+    init: function () {
       this.appendDummyInput()
         .appendField('Codar')
         .appendField(new Blockly.FieldNumber(0), 'task_value');
@@ -13,36 +12,49 @@ export function defineBlocks() {
       this.setTooltip('Fazer Task');
       this.setHelpUrl('');
       this.setColour(315);
-    }
+    },
   };
-
-  javascriptGenerator.forBlock['dev_task'] = function(block) {
-    const number_task_value = block.getFieldValue('task_value');
-    Function.fazerTask(number_task_value);
-    const code = ``;
-    return code;
+  Blockly.Blocks['dev_stamina_check'] = {
+    init: function () {
+      this.appendDummyInput('task_value')
+        .appendField('Stamina >')
+        .appendField(new Blockly.FieldNumber(0), 'less_than');
+      this.setOutput(true, 'Boolean');
+      this.setTooltip('stamina value');
+      this.setHelpUrl('');
+      this.setColour(315);
+    },
   };
-
   Blockly.Blocks['dev_coffe'] = {
-    init: function() {
-      this.appendDummyInput()
-        .appendField('Café ☕');
+    init: function () {
+      this.appendDummyInput().appendField('Café ☕');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setTooltip('Tomar Café');
       this.setHelpUrl('');
       this.setColour(315);
-    }
+    },
   };
 
-  javascriptGenerator.forBlock['dev_coffe'] = function() {
-    Function.tomarCafe();
-    const code = ``;
+  javascriptGenerator.forBlock['dev_stamina_check'] = function (block) {
+    const number_less_than = block.getFieldValue('less_than');
+    console.log(
+      `Stamina check: this.getStamina() > ${number_less_than}`);
+    const code = `this.getStamina() > ${number_less_than}`;
+    return [code, Order.NONE];
+  };
+
+  javascriptGenerator.forBlock['dev_task'] = function (block) {
+    const number_task_value = block.getFieldValue('task_value');
+    const code = `fazerTask(number_task_value);`;
+    return code;
+  };
+
+  javascriptGenerator.forBlock['dev_coffe'] = function () {
+    const code = `tomarCafe();`;
     return code;
   };
 }
 
-export function runCode() {
-  const code = javascriptGenerator.workspaceToCode(Blockly.getMainWorkspace());
-  eval(code);
-}
+
+

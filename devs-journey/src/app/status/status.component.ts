@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
-import { runCode } from '../blockly/blockly.constructor';
+import { BlocklyService } from '../blockly/blockly.service';
+
 
 @Component({
   selector: 'app-status',
@@ -11,7 +12,9 @@ import { runCode } from '../blockly/blockly.constructor';
 export class StatusComponent {
   devimg: string = 'JuniorAnimatedCoffee.gif';
   loading: boolean = false;
+
+    constructor(private blocklyservice: BlocklyService) {}
   run() {
-    runCode();
+    this.blocklyservice.runCode();
   }
 }

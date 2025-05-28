@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { BlocklyService } from './blockly.service';
+import { Component, inject, OnInit } from '@angular/core';
 import * as BlocklyConstructor from './blockly.constructor';
 import * as Blockly from 'blockly';
-import {BlocklyOptions} from 'blockly';
+import { BlocklyOptions } from 'blockly';
+import { ActivatedRoute } from '@angular/router';
+import { javascriptGenerator } from 'blockly/javascript';
 
 @Component({
   selector: 'app-blockly',
@@ -10,38 +13,29 @@ import {BlocklyOptions} from 'blockly';
   styleUrls: ['./blockly.component.css'],
 })
 export class BlocklyComponent implements OnInit {
-
-  constructor() {}
-
+  constructor(private blocklyservice: BlocklyService) {}
 
   ngOnInit() {
     BlocklyConstructor.defineBlocks();
     const blocklyDiv = document.getElementById('blocklyDiv');
-    const toolbox = {
+    const toolbox:any = {
       kind: 'flyoutToolbox',
-      contents: [
-        {
-          kind: 'block',
-          type: 'dev_task',
-        },
-        {
-          kind: 'block',
-          type: 'dev_coffe',
-        },
-      ],
+      contents: [],
     };
- if (blocklyDiv) {
-    Blockly.inject(blocklyDiv, {
-      readOnly: false,
-      media: 'media/',
-      trashcan: false,
-      move: {
-        scrollbars: true,
-        drag: true,
-        wheel: true,
-      },
-      toolbox,
-    } as BlocklyOptions);
+    toolbox.contents = this.blocklyservice.getContentByLevel(
+      this.blocklyservice.level);
+    if (blocklyDiv) {
+      Blockly.inject(blocklyDiv, {
+        readOnly: false,
+        media: 'media/',
+        trashcan: false,
+        move: {
+          scrollbars: true,
+          drag: true,
+          wheel: true,
+        },
+        toolbox,
+      } as BlocklyOptions);
+    }
   }
-}
 }
