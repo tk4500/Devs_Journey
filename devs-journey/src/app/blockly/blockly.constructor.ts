@@ -17,7 +17,7 @@ export function defineBlocks() {
   Blockly.Blocks['dev_stamina_check'] = {
     init: function () {
       this.appendDummyInput('task_value')
-        .appendField('Stamina >')
+        .appendField('Stamina <')
         .appendField(new Blockly.FieldNumber(0), 'less_than');
       this.setOutput(true, 'Boolean');
       this.setTooltip('stamina value');
@@ -25,7 +25,7 @@ export function defineBlocks() {
       this.setColour(315);
     },
   };
-  Blockly.Blocks['dev_coffe'] = {
+  Blockly.Blocks['dev_coffee'] = {
     init: function () {
       this.appendDummyInput().appendField('Café ☕');
       this.setPreviousStatement(true, null);
@@ -39,19 +39,20 @@ export function defineBlocks() {
   javascriptGenerator.forBlock['dev_stamina_check'] = function (block) {
     const number_less_than = block.getFieldValue('less_than');
     console.log(
-      `Stamina check: this.getStamina() > ${number_less_than}`);
-    const code = `this.getStamina() > ${number_less_than}`;
+      `Stamina check: this.getStamina() < ${number_less_than}`);
+    const code = `this.getStamina() < ${number_less_than}`;
     return [code, Order.NONE];
   };
 
   javascriptGenerator.forBlock['dev_task'] = function (block) {
     const number_task_value = block.getFieldValue('task_value');
-    const code = `fazerTask(number_task_value);`;
+    console.log(`Task value: ${number_task_value}`);
+    const code = `fazerTask(${number_task_value}, this);`;
     return code;
   };
 
-  javascriptGenerator.forBlock['dev_coffe'] = function () {
-    const code = `tomarCafe();`;
+  javascriptGenerator.forBlock['dev_coffee'] = function () {
+    const code = `tomarCafe(this);`;
     return code;
   };
 }
