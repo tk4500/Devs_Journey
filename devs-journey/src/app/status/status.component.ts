@@ -3,8 +3,10 @@ import { Button } from 'primeng/button';
 import { ProgressBar } from 'primeng/progressbar';
 import { BlocklyService } from '../blockly/blockly.service';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { javascriptGenerator } from 'blockly/javascript';
+import * as Blockly from 'blockly/core';
 import { ToastModule } from 'primeng/toast';
+import { InterpreterService } from '../blockly/interpreter.service';
 
 @Component({
   selector: 'app-status',
@@ -15,9 +17,27 @@ import { ToastModule } from 'primeng/toast';
 export class StatusComponent {
     imagem = computed(()=> this.blocklyservice.image());
     public blocklyservice = inject(BlocklyService);
+    constructor(private interpreter: InterpreterService) {
+
+    }
 
 
   run() {
-    this.blocklyservice.runCode();
+    const code = javascriptGenerator.workspaceToCode(
+      Blockly.getMainWorkspace()
+    );
+    this.interpreter.init(code);
+    this.interpreter.run();
+  }
+  pause() {
+    this.interpreter.pause();
+  }
+
+  step() {
+    this.interpreter.step();
+  }
+
+  reset() {
+    this.interpreter.reset();
   }
 }

@@ -14,7 +14,6 @@ import { javascriptGenerator } from 'blockly/javascript';
 })
 export class BlocklyComponent implements OnInit {
   constructor(private blocklyservice: BlocklyService) {}
-
   ngOnInit() {
     BlocklyConstructor.defineBlocks();
     const blocklyDiv = document.getElementById('blocklyDiv');
@@ -25,7 +24,7 @@ export class BlocklyComponent implements OnInit {
     toolbox.contents = this.blocklyservice.getContentByLevel(
       this.blocklyservice.level);
     if (blocklyDiv) {
-      Blockly.inject(blocklyDiv, {
+      this.blocklyservice.workspace = Blockly.inject(blocklyDiv, {
         readOnly: false,
         media: 'media/',
         trashcan: false,
@@ -37,5 +36,8 @@ export class BlocklyComponent implements OnInit {
         toolbox,
       } as BlocklyOptions);
     }
+    javascriptGenerator.INFINITE_LOOP_TRAP = null;
+    javascriptGenerator.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    javascriptGenerator.addReservedWords('highlightBlock');
   }
 }

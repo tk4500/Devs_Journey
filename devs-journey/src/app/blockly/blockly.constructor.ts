@@ -40,7 +40,7 @@ export function defineBlocks() {
     const number_less_than = block.getFieldValue('less_than');
     console.log(
       `Stamina check: this.getStamina() < ${number_less_than}`);
-    const code = `this.getStamina() < ${number_less_than}`;
+    const code = `getStamina() < ${number_less_than}`;
     return [code, Order.NONE];
   };
 
