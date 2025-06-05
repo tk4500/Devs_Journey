@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ExplainService {
-
+  run:boolean = false;
+  task:boolean = false;
   id = signal<number>(0);
   constructor(private http: HttpClient) {}
 
@@ -16,6 +17,12 @@ export class ExplainService {
   }
   setId(id: number) {
     this.id.set(id);
+  }
+  isRun(): boolean{
+    return this.run;
+  }
+  isTask(): boolean{
+    return this.task;
   }
 
 }

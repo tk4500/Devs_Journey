@@ -61,7 +61,6 @@ export class InterpreterService {
     if (!this.interpreter) {
       throw new Error('Interpreter not initialized');
     }
-
     const ok = this.interpreter.step();
     this.currentStep.update((v) => v + 1);
     if (!ok) {
@@ -84,6 +83,8 @@ export class InterpreterService {
         this.isRunning.set(false);
       }
     };
+    this.blocklyService.won = false;
+    this.blocklyService.resetGame();
     runner();
   }
   pause() {

@@ -24,6 +24,7 @@ export class BlocklyService {
     this.stamina = 100;
     this.focus = 0;
     this.time = 0;
+    this.getTaskByLevel(this.level);
   }
   updateLevel(level: number) {
     console.log('Updating level to:', level);

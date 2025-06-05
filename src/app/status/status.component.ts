@@ -7,6 +7,7 @@ import { javascriptGenerator } from 'blockly/javascript';
 import * as Blockly from 'blockly/core';
 import { ToastModule } from 'primeng/toast';
 import { InterpreterService } from '../blockly/interpreter.service';
+import { ExplainService } from '../explain/explain.service';
 
 @Component({
   selector: 'app-status',
@@ -17,7 +18,7 @@ import { InterpreterService } from '../blockly/interpreter.service';
 export class StatusComponent {
     imagem = computed(()=> this.blocklyservice.image());
     public blocklyservice = inject(BlocklyService);
-    constructor(private interpreter: InterpreterService) {
+    constructor(private interpreter: InterpreterService,public explain: ExplainService) {
 
     }
 

@@ -7,5 +7,9 @@ body{
 div{
 --p-panel-header-padding: 0;
 --p-panel-content-padding: 1rem;
+--p-toolbar-padding: 0;
 }
-
+.app-container {
+  height: 100%;
+  width: 100%;
+}

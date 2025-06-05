@@ -1,0 +1,17 @@
+<div class="absolute bg-gray-900 opacity-50 h-full w-full"
+[ngStyle]="{'z-index': base.isOver ? 3 : 10,}"
+  *ngIf="!base.isHidden"></div>
+<img class="absolute" [src]="base.sergioImage"
+  [ngStyle]="{'left.px': base.sergioX, 'top.px': base.sergioY, 'z-index': 100, 'transform': base.sergioMirror ? 'scaleX(-1)' : ''}"
+  *ngIf="base.isSergio">
+<p-panel class="absolute"
+  [ngStyle]="{'left.px': base.explanationX, 'top.px': base.explanationY, 'z-index': 100}"
+  *ngIf="base.isExplanation">
+  <p class="text-lg m-0 max-w-20rem">{{ base.explanation }}</p>
+</p-panel>
+<p-button class="absolute" styleClass="text-xl font-bold"
+  [ngStyle]="{'left.px': 1450, 'top.px': 650, 'z-index': 100}"
+  *ngIf="isFoward" (onClick)="next()">&rarr;</p-button>
+<p-button class="absolute" styleClass="text-xl font-bold"
+  [ngStyle]="{'left.px': 1350, 'top.px': 650, 'z-index': 100}"
+  *ngIf="isBack" (onClick)="back()">&larr;</p-button>
