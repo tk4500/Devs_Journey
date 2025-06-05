@@ -8,6 +8,8 @@ import { StatusComponent } from '../status/status.component';
 import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { BlocklyService } from '../blockly/blockly.service';
+import { ExplainComponent } from '../explain/explain.component';
+import { ExplainService } from '../explain/explain.service';
 
 @Component({
   selector: 'app-gamescreen',
@@ -26,12 +28,14 @@ import { BlocklyService } from '../blockly/blockly.service';
 export class GamescreenComponent implements OnInit {
   gameLevel: string | null = null;
 
-  constructor(private route: ActivatedRoute, private blocklyService: BlocklyService) {}
+  constructor(private route: ActivatedRoute, private blocklyService: BlocklyService, private explainService: ExplainService) {}
 
   ngOnInit(): void {
+    console.log('GamescreenComponent initialized');
     this.route.params.subscribe(params => {
       console.log('Route parameters:', params);
       this.blocklyService.updateLevel(params['id']);
+      this.explainService.setId(params['id']);
     });
   }
 }

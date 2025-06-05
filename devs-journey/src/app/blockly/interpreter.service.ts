@@ -37,17 +37,14 @@ export class InterpreterService {
       globalObject,
       'fazerTask',
       interpreter.createNativeFunction((task: number) => {
-        console.log(`Fazendo task: ${task}`);
-        const staminaCost = 10;
-        this.blocklyService.changeStamina(-staminaCost);
+        this.blocklyService.fazerTask(task);
       })
     );
     interpreter.setProperty(
       globalObject,
       'tomarCafe',
       interpreter.createNativeFunction(() => {
-        this.blocklyService.changeImg('JuniorAnimatedCoffee.gif');
-        this.blocklyService.changeStamina(20);
+        this.blocklyService.tomarCafe();
       })
     );
     interpreter.setProperty(

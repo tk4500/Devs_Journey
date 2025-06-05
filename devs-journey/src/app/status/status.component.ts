@@ -21,7 +21,9 @@ export class StatusComponent {
 
     }
 
-
+  nextLvl(){
+    this.blocklyservice.nextLevel();
+  }
   run() {
     const code = javascriptGenerator.workspaceToCode(
       Blockly.getMainWorkspace()

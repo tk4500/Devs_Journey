@@ -6,7 +6,7 @@ export function defineBlocks() {
     init: function () {
       this.appendDummyInput()
         .appendField('Codar')
-        .appendField(new Blockly.FieldNumber(0), 'task_value');
+        .appendField(new Blockly.FieldNumber(1), 'task_value');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setTooltip('Fazer Task');

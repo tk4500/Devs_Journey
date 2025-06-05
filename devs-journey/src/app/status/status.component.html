@@ -1,12 +1,35 @@
 <div class="flex flex-column">
-    <div class="flex align-items-center justify-content-center p-3">
-      <img [src]="imagem()">
+  <div class="flex align-items-center justify-content-center p-1">
+    <h1 class="p-3">Level: {{ blocklyservice.level }}</h1>
+    <img [src]="imagem()">
+  </div>
+  <div class="flex align-items-center justify-content-center p-2">
+    <p-button label="Rodar Codigo" icon="pi pi-check" (onClick)="run()" />
+  </div>
+  <div class="flex flex-row align-items-center justify-content-center">
+    <div *ngFor="let task of blocklyservice.getTask()"
+      class="card align-items-center justify-content-center px-3">
+      <p class="text-center my-1">{{ task.name }}</p>
+      <p class="text-center my-0"> {{task.conclusion}}/100</p>
     </div>
-    <div class="flex align-items-center justify-content-center">
-      <p-button label="Rodar Codigo" icon="pi pi-check" (onClick)="run()" />
+    <div class="card align-items-center justify-content-center px-3"
+      *ngIf="blocklyservice.isFocus">
+      <p class="text-center my-1">Focus</p>
+      <p class="text-center my-0">{{blocklyservice.getFocus()}}</p>
     </div>
-    <div  class="card align-items-center justify-content-center p-3">
-      <p class="text-center">Stamina</p>
-      <p-progressBar [value]="blocklyservice.getStamina()"></p-progressBar>
-    </div>
+  </div>
+  <div class="card align-items-center justify-content-center p-1"
+    *ngIf="blocklyservice.isStamina">
+    <p class="text-center my-2">Stamina</p>
+    <p-progressbar [value]="blocklyservice.getStamina()"></p-progressbar>
+  </div>
+  <div class="card align-items-center justify-content-center p-1"
+    *ngIf="blocklyservice.isTime">
+    <p class="text-center my-2">Time</p>
+    <p-progressbar [value]="blocklyservice.getTime()"></p-progressbar>
+  </div>
+  <div class="flex align-items-center justify-content-center p-2"
+    *ngIf="blocklyservice.won">
+    <p-button label="Proximo Nivel" icon="pi pi-check" (onClick)="nextLvl()" />
+  </div>
 </div>
