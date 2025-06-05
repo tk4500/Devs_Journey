@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { javascriptGenerator } from 'blockly/javascript';
 import * as Blockly from 'blockly/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class BlocklyService {
   isFocus: boolean = false;
   isTime: boolean = false;
   won: boolean = false;
-  constructor() {}
+  constructor(private router: Router) {}
   resetGame() {
     this.stamina = 100;
     this.focus = 0;
@@ -34,7 +35,7 @@ export class BlocklyService {
   }
   nextLevel() {
     this.level++;
-    window.location.href = `/gameroute/${this.level}`;
+    this.router.navigate(['/gameroute', this.level]);
   }
   changeImg(img: string) {
     this.image.set(img);

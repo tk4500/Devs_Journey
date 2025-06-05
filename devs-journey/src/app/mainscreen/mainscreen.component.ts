@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Button } from 'primeng/button';
 
 @Component({
@@ -10,7 +11,9 @@ import { Button } from 'primeng/button';
 })
 export class MainscreenComponent {
 
-  startGame(){
-    window.location.href = `/gameroute/1`;
+  constructor(private router: Router) {}
+
+  startGame() {
+    this.router.navigate(['/gameroute', 1]);
   }
 }
