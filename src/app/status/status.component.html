@@ -1,6 +1,6 @@
 <div class="flex flex-column">
   <div class="flex align-items-center justify-content-center p-1">
-    <h1 class="p-3">Level: {{ blocklyservice.level }}</h1>
+    <h1 class="p-3">Level: {{ blocklyservice.getLevel() }}</h1>
     <img [src]="imagem()">
   </div>
   <div class="flex align-items-center justify-content-center p-2"

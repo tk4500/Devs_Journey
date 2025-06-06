@@ -1,9 +1,8 @@
 import { BlocklyService } from './blockly.service';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit } from '@angular/core';
 import * as BlocklyConstructor from './blockly.constructor';
 import * as Blockly from 'blockly';
 import { BlocklyOptions } from 'blockly';
-import { ActivatedRoute } from '@angular/router';
 import { javascriptGenerator } from 'blockly/javascript';
 
 @Component({
@@ -12,9 +11,26 @@ import { javascriptGenerator } from 'blockly/javascript';
   standalone: true,
   styleUrls: ['./blockly.component.css'],
 })
-export class BlocklyComponent implements OnInit {
+export class BlocklyComponent implements OnDestroy {
+  clearWorkspace() {
+    if (this.blocklyservice.workspace) {
+      this.blocklyservice.workspace.dispose();
+    }
+  }
   constructor(private blocklyservice: BlocklyService) {}
-  ngOnInit() {
+  ngOnDestroy(): void {
+    this.actionEffect.destroy();
+    this.clearWorkspace();
+  }
+
+  private actionEffect = effect(() => {
+    const lvl = computed(() => this.blocklyservice.level());
+    if (lvl()) {
+      this.clearWorkspace();
+      this.updateLevel();
+    }
+  });
+  updateLevel() {
     BlocklyConstructor.defineBlocks();
     const blocklyDiv = document.getElementById('blocklyDiv');
     const toolbox:any = {
@@ -22,7 +38,7 @@ export class BlocklyComponent implements OnInit {
       contents: [],
     };
     toolbox.contents = this.blocklyservice.getContentByLevel(
-      this.blocklyservice.level);
+      this.blocklyservice.getLevel());
     if (blocklyDiv) {
       this.blocklyservice.workspace = Blockly.inject(blocklyDiv, {
         readOnly: false,

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class BlocklyService {
   workspace: Blockly.WorkspaceSvg | null = null;
   image = signal<string>('JuniorAnimatedNormal.gif');
-  level: number = 1;
+  level = signal<number>(1);
   task_focus: number = 0;
   task: Task[] = [];
   stamina: number = 100;
@@ -19,24 +19,30 @@ export class BlocklyService {
   isFocus: boolean = false;
   isTime: boolean = false;
   won: boolean = false;
+  getLevel(): number {
+    return this.level();
+  }
+
   constructor(private router: Router) {}
   resetGame() {
     this.stamina = 100;
     this.focus = 0;
     this.time = 0;
-    this.getTaskByLevel(this.level);
+    this.getTaskByLevel(this.getLevel());
   }
-  updateLevel(level: number) {
-    console.log('Updating level to:', level);
-    this.level = level;
+  updateLevel(lvl: number) {
+    console.log('Updating level to:', lvl);
+    this.level.set(lvl);
   }
   gameOver() {
     console.log('Game Over');
     this.resetGame();
   }
   nextLevel() {
-    this.level++;
-    this.router.navigate(['/gameroute', this.level]);
+    let currentLevel: number = this.getLevel();
+    currentLevel++;
+    this.level.set(currentLevel);
+    this.router.navigate(['/gameroute', this.getLevel()]);
   }
   changeImg(img: string) {
     this.image.set(img);
